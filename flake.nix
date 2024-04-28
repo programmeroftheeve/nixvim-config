@@ -4,7 +4,9 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     nixvim.url = "github:nix-community/nixvim";
+    nixvim.inputs.nixpkgs.follows = "nixpkgs";
     flake-parts.url = "github:hercules-ci/flake-parts";
+    flake-parts.inputs.nixpkgs-lib.follows = "nixpkgs";
   };
 
   outputs = {
@@ -37,12 +39,14 @@
         };
         nvim = nixvim'.makeNixvimWithModule nixvimModule;
       in {
+        formatter = pkgs.alejandra;
         checks = {
           # Run `nix flake check .` to verify that your config is not broken
           default = nixvimLib.check.mkTestDerivationFromNixvimModule nixvimModule;
         };
 
         packages = {
+          inherit nvim;
           # Lets you run `nix run .` to start nixvim
           default = nvim;
         };
