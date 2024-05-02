@@ -58,11 +58,11 @@
         action = "oldfiles";
         options.desc = "[S]earch Recent Files ('.' for repeat)";
       };
-      "<leader>sb" =
+      "<leader>sb" = {
         action = "buffers";
         options.desc = "[S]earch [B]uffers";
       };
-      "<leader><leader>" =
+      "<leader><leader>" = {
         action = "find_files";
         options.desc = "[ ] Search for file";
       };
