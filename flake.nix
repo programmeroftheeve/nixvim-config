@@ -7,10 +7,12 @@
     nixvim.inputs.nixpkgs.follows = "nixpkgs";
     flake-parts.url = "github:hercules-ci/flake-parts";
     flake-parts.inputs.nixpkgs-lib.follows = "nixpkgs";
+neorg-overlay.url = "github:nvim-neorg/nixpkgs-neorg-overlay";
   };
 
   outputs = {
     nixvim,
+    neorg-overlay,
     flake-parts,
     ...
   } @ inputs:
@@ -23,10 +25,13 @@
       ];
 
       perSystem = {
-        pkgs,
         system,
         ...
       }: let
+        pkgs = import inputs.nixpkgs {
+          inherit system;
+          overlays = [ inputs.neorg-overlay.overlays.default ];
+        };
         nixvimLib = nixvim.lib.${system};
         nixvim' = nixvim.legacyPackages.${system};
         nixvimModule = {
@@ -39,6 +44,7 @@
         };
         nvim = nixvim'.makeNixvimWithModule nixvimModule;
       in {
+        _module.args.pkgs = pkgs;
         formatter = pkgs.alejandra;
         checks = {
           # Run `nix flake check .` to verify that your config is not broken

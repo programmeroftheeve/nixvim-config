@@ -1,9 +1,11 @@
+{ lib, ...}@inputs:
 {
   # Import all your configuration modules here
   imports = [
     ./telescope.nix
     ./bufferline.nix
     ./which-key.nix
+    ./neorg.nix
   ];
   plugins = {
     sleuth.enable = true;
