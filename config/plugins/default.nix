@@ -6,6 +6,8 @@
     ./bufferline.nix
     ./which-key.nix
     ./neorg.nix
+    ./treesitter.nix
+    ./cmp.nix
   ];
   plugins = {
     sleuth.enable = true;
