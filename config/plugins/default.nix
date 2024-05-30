@@ -8,6 +8,7 @@
     ./neorg.nix
     ./treesitter.nix
     ./cmp.nix
+    ./lsp.nix
   ];
   plugins = {
     sleuth.enable = true;
@@ -22,5 +23,6 @@
         changedelete.text = "~";
       };
     };
+    direnv.enable = true;
   };
 }
